@@ -1,0 +1,133 @@
+# Built with EasyBuild version 3.7.1 on 2018-10-19_18-36-38
+# Built with EasyBuild version 3.7.1 on 2018-10-19_17-59-07
+easyblock = 'EB_GCC'
+
+name = 'GCCcore'
+version = '8.2.0'
+
+homepage = 'http://gcc.gnu.org/'
+description = """The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, and Ada,
+ as well as libraries for these languages (libstdc++, libgcj,...)."""
+
+toolchain = {'name': 'dummy', 'version': ''}
+
+mpfr_version = '4.0.1'
+
+source_urls = [
+    'http://ftpmirror.gnu.org/gnu/gcc/gcc-%(version)s',  # GCC auto-resolving HTTP mirror
+    'http://ftpmirror.gnu.org/gnu/gmp',  # idem for GMP
+    'http://ftpmirror.gnu.org/gnu/mpfr',  # idem for MPFR
+    'http://ftpmirror.gnu.org/gnu/mpc',  # idem for MPC
+    'ftp://gcc.gnu.org/pub/gcc/infrastructure/',  # GCC dependencies
+    'http://gcc.cybermirror.org/infrastructure/',  # HTTP mirror for GCC dependencies
+    'http://isl.gforge.inria.fr/',  # original HTTP source for ISL
+]
+sources = [
+    'gcc-%(version)s.tar.gz',
+    'gmp-6.1.2.tar.bz2',
+    'mpfr-%s.tar.bz2' % mpfr_version,
+    'mpc-1.1.0.tar.gz',
+    'isl-0.20.tar.bz2',
+]
+patches = [
+    'GCCcore-6.2.0-fix-find-isl.patch',
+    'gcc-8.2.0-isl-0.20-missing-include.patch',
+]
+checksums = [
+    '1b0f36be1045ff58cbb9c83743835367b860810f17f0195a4e093458b372020f',  # gcc-8.2.0.tar.gz
+    '5275bb04f4863a13516b2f39392ac5e272f5e1bb8057b18aec1c9b79d73d8fb2',  # gmp-6.1.2.tar.bz2
+    'a4d97610ba8579d380b384b225187c250ef88cfe1d5e7226b89519374209b86b',  # mpfr-4.0.1.tar.bz2
+    '6985c538143c1208dcb1ac42cedad6ff52e267b47e5f970183a3e75125b43c2e',  # mpc-1.1.0.tar.gz
+    'b587e083eb65a8b394e833dea1744f21af3f0e413a448c17536b5549ae42a4c2',  # isl-0.20.tar.bz2
+    '5ad909606d17d851c6ad629b4fddb6c1621844218b8d139fed18c502a7696c68',  # GCCcore-6.2.0-fix-find-isl.patch
+    '62fa14c3ba2e59cb1d172251cd9d429534394388b10796cf437f65e94ce81c7f',  # gcc-8.2.0-isl-0.20-missing-include.patch
+]
+
+builddependencies = [
+    ('M4', '1.4.18'),
+    ('binutils', '2.31.1'),
+]
+
+languages = ['c', 'c++', 'fortran']
+
+withisl = True
+
+moduleclass = 'compiler'
+
+# Build statistics
+buildstats = [{
+    "build_time": 1763.51,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/eb/apps/centos7/Core/EasyBuild/3.7.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.7.1-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './Bison-3.0.4-GCCcore-8.2.0.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper; Target: x86_64-redhat-linux; Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 1410006157,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/usr/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1539986346,
+    "total_memory": 31894,
+}]
+
+# Build statistics
+buildstats = [
+{
+    "build_time": 1763.51,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/eb/apps/centos7/Core/EasyBuild/3.7.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.7.1-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './Bison-3.0.4-GCCcore-8.2.0.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper; Target: x86_64-redhat-linux; Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 1410006157,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/usr/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1539986346,
+    "total_memory": 31894,
+},
+{
+    "build_time": 1735.02,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/eb/apps/centos7/Core/EasyBuild/3.7.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.7.1-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'GCC-8.2.0-2.31.1.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper; Target: x86_64-redhat-linux; Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 1410006165,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/usr/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1539988597,
+    "total_memory": 31894,
+},
+]

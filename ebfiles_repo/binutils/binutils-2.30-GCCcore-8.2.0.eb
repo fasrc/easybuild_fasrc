@@ -1,0 +1,52 @@
+# Built with EasyBuild version 3.7.1 on 2018-10-20_23-11-52
+name = 'binutils'
+version = '2.30'
+
+homepage = 'http://directory.fsf.org/project/binutils/'
+description = "binutils: GNU binary utilities"
+
+toolchain = {'version': '8.2.0', 'name': 'GCCcore'}  # use same binutils version that was used when building GCC toolchain, to 'bootstrap' this binutils
+
+sources = [SOURCE_TAR_GZ]
+source_urls = [GNU_SOURCE]
+
+patches = ['%(name)s-%(version)s_fix-assertion-fail-elf.patch']
+
+builddependencies = [
+    ('flex', '2.6.4'),
+    ('Bison', '3.0.4'),
+    ('zlib', '1.2.11'),
+    ('binutils', '2.30', '', True),
+]
+
+checksums = [
+    '8c3850195d1c093d290a716e20ebcaa72eda32abf5e3d8611154b39cff79e9ea',  # %(name)s-%(version)s.tar.gz
+    '7a661190c973287642296dd9fb30ff45dc26ae2138f7761cd8362f7e412ff5ab',  # %(name)s-2.30_fix-assertion-fail-elf.patch
+]
+
+moduleclass = 'tools'
+# Build statistics
+buildstats = [{
+    "build_time": 161.47,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:/n/sw/eb/apps/centos7/Core/EasyBuild/3.7.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.7.1-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/ebfiles_repo:'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild5/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='GCCcore,8.2.0'", "--umask='002'", 'Szip-2.1.1-GCCcore-7.3.0.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/8.2.0/libexec/gcc/x86_64-pc-linux-gnu/8.2.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/8.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/8.2.0 --enable-bootstrap --with-isl=/scratch/pkrastev/easybuild/GCCcore/8.2.0/dummy-/gcc-8.2.0/stage2_stuff; Thread model: posix; gcc version 8.2.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 86790832,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/8.2.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1540091512,
+    "total_memory": 31894,
+}]
