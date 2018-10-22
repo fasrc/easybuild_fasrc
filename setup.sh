@@ -1,4 +1,8 @@
-# EasyBuild setup file
+# basic EasyBuild setup file -- adjust as needed
+
+# location of production fasrcsw
+export FASRCSW_PROD=/n/sw/eb
+export FASRCSW_OS=centos7
 
 # author and build host
 export FASRCSW_AUTHOR="$(getent passwd $USER | cut -d: -f5), Harvard FAS Research Computing <rchelp@fas.harvard.edu>"
@@ -12,16 +16,34 @@ else
 fi
 export FASRCSW_DEV="$(dirname "$(readlink -e "$BASH_SOURCE")")"
 
-# EasyBuild needs a recent lmod version to be available in the $PATH 
-# ERROR: EasyBuild requires vLmod >= v5.6.3 (no rc), found v5.4.1
-export LMOD_CMD="/n/sw/eb/lmod/lmod/libexec/lmod"
-export PATH="/n/sw/eb/lmod/lmod/libexec:$PATH"
+# EasyBuild needs a recent lmod version available in $PATH ( Lmod version >= 5.6.3 )
+export LMOD_CMD="$FASRCSW_PROD/lmod/lmod/libexec/lmod"
+export PATH="$FASRCSW_PROD/lmod/lmod/libexec:$PATH"
+
+# create easyconfigs and build directories and symbolic links
+if [ ! -d ../easybuild-easyconfigs ]; then
+    cd ..
+    git clone https://github.com/easybuilders/easybuild-easyconfigs.git
+   cd easybuild_fasrc
+fi
+
+if [ ! -h easyconfigs  ]; then
+    ln -s ../easybuild-easyconfigs/easybuild/easyconfigs easyconfigs
+fi
+
+if [ ! -d /scratch/$USER/easybuild ]; then
+    mkdir -p /scratch/$USER/easybuild
+fi
+
+if [ ! -h ebdev/BUILD ]; then
+    ln -s /scratch/$USER/easybuild ebdev/BUILD
+fi
 
 # set EasyBuild environment variables
 export EASYBUILD_MODULES_TOOL=Lmod
-export EASYBUILD_REPOSITORYPATH=$FASRCSW_DEV/ebfiles_repo
+export EASYBUILD_REPOSITORYPATH=$FASRCSW_DEV/ebdev/EBREPO
 export EASYBUILD_REPOSITORY=FileRepository
-export EASYBUILD_BUILDPATH=$FASRCSW_DEV/BUILD
+export EASYBUILD_BUILDPATH=$FASRCSW_DEV/ebdev/BUILD
 export EASYBUILD_UMASK=002
 export EASYBUILD_SET_GID_BIT=1
 export EASYBUILD_IGNORE_OSDEPS=0
@@ -29,13 +51,13 @@ export EASYBUILD_RECURSIVE_MODULE_UNLOAD=1
 export EASYBUILD_GROUP_WRITABLE_INSTALLDIR=1
 export EASYBUILD_HIDE_DEPS=Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo
 export EASYBUILD_MODULE_NAMING_SCHEME=HierarchicalMNS
-export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/SPECS:$EASYBUILD_REPOSITORYPATH
-export EASYBUILD_INSTALLPATH_SOFTWARE=/n/sw/eb/apps/centos7
-export EASYBUILD_INSTALLPATH_MODULES=/n/sw/eb/modulefiles/centos7
+export EASYBUILD_INSTALLPATH_SOFTWARE=$FASRCSW_PROD/apps/$FASRCSW_OS
+export EASYBUILD_INSTALLPATH_MODULES=$FASRCSW_PROD/modulefiles/$FASRCSW_OS
 export EASYBUILD_SUFFIX_MODULES_PATH=""
-export EASYBUILD_SOURCEPATH=$FASRCSW_DEV/SOURCES
+export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/ebdev/SPECS:$FASRCSW_DEV/ebdev/EBREPO:$FASRCSW_DEV/easyconfigs
+export EASYBUILD_SOURCEPATH=$FASRCSW_DEV/endev/SOURCES
 
 # set MODULEPATH and load EasyBuild module
 module unuse /n/helmod/modulefiles/centos7/Core
-export MODULEPATH=/n/sw/eb/modulefiles/centos7/Core:$MODULEPATH
+export MODULEPATH=$FASRCSW_PROD/modulefiles/$FASRCSW_OS/Core:$MODULEPATH
 module load EasyBuild/3.7.1

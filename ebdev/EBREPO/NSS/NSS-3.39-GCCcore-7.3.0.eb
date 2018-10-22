@@ -1,0 +1,67 @@
+# Built with EasyBuild version 3.7.1 on 2018-10-21_18-39-45
+easyblock = 'MakeCp'
+
+name = 'NSS'
+version = '3.39'
+
+homepage = 'https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS'
+description = """Network Security Services (NSS) is a set of libraries designed to support cross-platform development
+ of security-enabled client and server applications."""
+
+toolchain = {'name': 'GCCcore', 'version': '7.3.0'}
+
+source_urls = ['https://ftp.mozilla.org/pub/security/nss/releases/NSS_%(version_major)s_%(version_minor)s_RTM/src/']
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['NSS-%(version)s_pkgconfig.patch']
+checksums = [
+    '6be64dd76f212415cc8bc34343ac1e7389048db4db9a023a84873c411dc5864b',  # nss-3.39.tar.gz
+    '5c4b55842e5afd1e8e67b90635f6474510b89242963c4ac2622d3e3da9062774',  # NSS-3.39_pkgconfig.patch
+]
+
+builddependencies = [('binutils', '2.30')]
+dependencies = [('NSPR', '4.20')]
+
+# building in parallel fails
+parallel = 1
+
+# fix for not being able to find header files
+buildopts = 'BUILD_OPT=1 USE_64=1 CPATH="$EBROOTNSPR/include/nspr:$CPATH" && '
+# also install pkgconfig file (see patch)
+buildopts += "cd config && make PREFIX=%(installdir)s BUILD_OPT=1 USE_64=1 && cd -"
+
+files_to_copy = ['../dist/Linux*.OBJ/*', (['../dist/public/*'], 'include')]
+
+sanity_check_paths = {
+    'files': ['lib/libnss.a'],
+    'dirs': ['bin', 'include/dbm', 'include/nss'],
+}
+
+modextrapaths = {'CPATH': 'include/nss'}
+
+moduleclass = 'lib'
+
+# Build statistics
+buildstats = [{
+    "build_time": 507.55,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebfiles_repo'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/SPECS:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebfiles_repo:/n/sw/eb/apps/centos7/Core/EasyBuild/3.7.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.7.1-py2.7.egg/easybuild/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/SPECS:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebfiles_repo:'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'OpenFOAM-6-foss-2018b.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/libexec/gcc/x86_64-pc-linux-gnu/7.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --enable-bootstrap --with-isl=/scratch/pkrastev/easybuild/GCCcore/7.3.0/dummy-/gcc-7.3.0/stage2_stuff; Thread model: posix; gcc version 7.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 35542761,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1540161584,
+    "total_memory": 31894,
+}]

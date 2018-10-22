@@ -1,3 +1,4 @@
-BUILD
-SOURCES/*
-!SOURCES/.gitkeep
+easyconfigs
+ebdev/BUILD
+ebdev/SOURCES/*
+!ebdev/SOURCES/.gitkeep
