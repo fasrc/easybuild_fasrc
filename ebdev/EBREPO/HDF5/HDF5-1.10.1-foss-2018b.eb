@@ -1,0 +1,49 @@
+# Built with EasyBuild version 3.7.1 on 2018-10-23_16-43-58
+name = 'HDF5'
+version = '1.10.1'
+
+homepage = 'https://portal.hdfgroup.org/display/support'
+description = """HDF5 is a data model, library, and file format for storing and managing data.
+ It supports an unlimited variety of datatypes, and is designed for flexible
+ and efficient I/O and for high volume and complex data."""
+
+toolchain = {'version': '2018b', 'name': 'foss'}
+toolchainopts = {'usempi': True, 'pic': True}
+
+sources = [SOURCELOWER_TAR_GZ]
+source_urls = ['https://support.hdfgroup.org/ftp/%(name)s/releases/%(namelower)s-%(version_major_minor)s/%(namelower)s-%(version)s/src']
+
+dependencies = [
+    ('zlib', '1.2.11', '', ('GCCcore', '7.3.0')),
+    ('Szip', '2.1.1', '', ('GCCcore', '7.3.0')),
+    ('libxml2', '2.9.7', '', ('GCCcore', '7.3.0')),
+]
+
+checksums = ['048a9d149fb99aaa1680a712963f5a78e9c43b588d0e79d55e06760ec377c172']
+
+moduleclass = 'data'
+# Build statistics
+buildstats = [{
+    "build_time": 380.29,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/SPECS:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/EBREPO:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/easyconfigs'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/SPECS:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/EBREPO:/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/easyconfigs'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='foss,2018b'", "--umask='002'", 'PETSc-3.9.1-foss-2018a-downloaded-deps.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/libexec/gcc/x86_64-pc-linux-gnu/7.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --enable-bootstrap --with-isl=/scratch/pkrastev/easybuild/GCCcore/7.3.0/dummy-/gcc-7.3.0/stage2_stuff; Thread model: posix; gcc version 7.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 37400730,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1540327438,
+    "total_memory": 31894,
+}]

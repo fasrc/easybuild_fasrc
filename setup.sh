@@ -60,4 +60,4 @@ export EASYBUILD_SOURCEPATH=$FASRCSW_DEV/ebdev/SOURCES
 # set MODULEPATH and load EasyBuild module
 module unuse /n/helmod/modulefiles/centos7/Core
 export MODULEPATH=$FASRCSW_PROD/modulefiles/$FASRCSW_OS/Core:$MODULEPATH
-module load EasyBuild/3.7.1
+module load EasyBuild
