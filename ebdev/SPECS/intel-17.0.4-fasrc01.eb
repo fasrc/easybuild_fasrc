@@ -1,0 +1,27 @@
+easyblock = 'Toolchain'
+
+name = 'intel'
+version = '17.0.4'
+
+# Release label
+release = 'fasrc01'
+versionsuffix = "-%s" % release
+
+homepage = 'http://software.intel.com/en-us/intel-cluster-toolkit-compiler/'
+description = "Compiler toolchain including Intel compilers, Intel MPI and Intel Math Kernel Library (MKL)."
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+compver = '2017.4.196'
+gccver = '8.2.0'
+binutilsver = '2.31.1'
+gccsuff = '-GCC-%s-%s' % (gccver, binutilsver)
+dependencies = [
+    ('GCCcore', gccver),
+    ('binutils', binutilsver, '-GCCcore-%s' % gccver),
+    ('icc', compver, gccsuff),
+    ('ifort', compver, gccsuff),
+    ('imkl', '2017.4.239', '', ('iccifort', '%s%s' % (compver, gccsuff)))
+]
+
+moduleclass = 'toolchain'
