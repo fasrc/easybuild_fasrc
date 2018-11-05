@@ -1,0 +1,32 @@
+name = 'netCDF'
+version = '4.1.3'
+
+# Release label
+release = 'fasrc01'
+versionsuffix = "-%s" % release
+
+homepage = 'http://www.unidata.ucar.edu/software/netcdf/'
+description = """NetCDF (network Common Data Form) is a set of software libraries 
+and machine-independent data formats that support the creation, access, and sharing of array-oriented 
+scientific data."""
+
+toolchain = {'name': 'iimpi', 'version': '2017.4'}
+toolchainopts = {'pic': True}
+
+sources = [SOURCELOWER_TAR_GZ]
+source_urls = ['ftp://ftp.unidata.ucar.edu/pub/netcdf/']
+
+configopts = '--enable-netcdf-4 '
+configopts += '--with-temp-large=/scratch '
+configopts += 'LIBS=-lsz '
+configopts += 'LDFLAGS=-lsz '
+configopts += 'FC=mpifort '
+configopts += 'F77=mpif77 '
+configopts += 'CC=mpicc '
+
+# Dependencies for this build: '-fasrc01' is the HDF5 version suffix (FASRC label)
+dependencies = [('HDF5', '1.8.12', '-fasrc01')]
+
+maxparallel = 8
+
+moduleclass = 'data'

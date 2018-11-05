@@ -19,10 +19,9 @@ sources = [SOURCELOWER_TAR_GZ]
 patches = ['configure_libtool.patch']
 
 compver = '2017.4.196'
-suff = '-GCC-8.2.0-2.31.1'
 dependencies = [
-	('Szip', '2.1.1', '-fasrc01', ('iccifort', '%s%s' % (compver, suff))), 
-	('zlib', '1.2.11', '-fasrc01', ('iccifort', '%s%s' % (compver, suff)))
+	('Szip', '2.1.1', '-fasrc01', ('iccifort', '%s' % compver)), 
+	('zlib', '1.2.11', '-fasrc01', ('iccifort', '%s' % compver))
 ]
 
 maxparallel = 8
