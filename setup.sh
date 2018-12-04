@@ -20,17 +20,7 @@ export FASRCSW_DEV="$(dirname "$(readlink -e "$BASH_SOURCE")")"
 export LMOD_CMD="$FASRCSW_PROD/lmod/lmod/libexec/lmod"
 export PATH="$FASRCSW_PROD/lmod/lmod/libexec:$PATH"
 
-# create easyconfigs and build directories and symbolic links
-if [ ! -d ../easybuild-easyconfigs ]; then
-    cd ..
-    git clone https://github.com/easybuilders/easybuild-easyconfigs.git
-   cd easybuild_fasrc
-fi
-
-if [ ! -h easyconfigs  ]; then
-    ln -s ../easybuild-easyconfigs/easybuild/easyconfigs easyconfigs
-fi
-
+# build directory
 if [ ! -d /scratch/$USER/easybuild ]; then
     mkdir -p /scratch/$USER/easybuild
 fi
@@ -38,6 +28,16 @@ fi
 if [ ! -h ebdev/BUILD ]; then
     ln -s /scratch/$USER/easybuild ebdev/BUILD
 fi
+
+#if [ ! -d ../easybuild-easyconfigs ]; then
+#    cd ..
+#    git clone https://github.com/easybuilders/easybuild-easyconfigs.git
+#   cd easybuild_fasrc
+#fi
+#
+#if [ ! -h easyconfigs  ]; then
+#    ln -s ../easybuild-easyconfigs/easybuild/easyconfigs easyconfigs
+#fi
 
 # set EasyBuild environment variables
 export EASYBUILD_MODULES_TOOL=Lmod
@@ -54,10 +54,17 @@ export EASYBUILD_MODULE_NAMING_SCHEME=HierarchicalMNS
 export EASYBUILD_INSTALLPATH_SOFTWARE=$FASRCSW_PROD/apps/$FASRCSW_OS
 export EASYBUILD_INSTALLPATH_MODULES=$FASRCSW_PROD/modulefiles/$FASRCSW_OS
 export EASYBUILD_SUFFIX_MODULES_PATH=""
-export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/ebdev/SPECS:$FASRCSW_DEV/easyconfigs
+#export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/ebdev/SPECS:$FASRCSW_DEV/easyconfigs
 export EASYBUILD_SOURCEPATH=$FASRCSW_DEV/ebdev/SOURCES
 
 # set MODULEPATH and load EasyBuild module
 module unuse /n/helmod/modulefiles/centos7/Core
 export MODULEPATH=$FASRCSW_PROD/modulefiles/$FASRCSW_OS/Core:$MODULEPATH
 module load EasyBuild
+
+# Print out EB version
+eb --version
+
+# set EASYBUILD_ROBOT_PATHS
+export EB_RP=$EBROOTEASYBUILD/lib/python2.7/site-packages/easybuild_easyconfigs-$EBVERSIONEASYBUILD-py2.7.egg/easybuild/easyconfigs
+export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/ebdev/SPECS:$EB_RP
