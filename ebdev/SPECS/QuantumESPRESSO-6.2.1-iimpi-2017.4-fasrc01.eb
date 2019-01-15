@@ -1,0 +1,46 @@
+easyblock = "ConfigureMake"
+
+name = 'QuantumESPRESSO'
+version = '6.2.1'
+
+# Release label
+release = 'fasrc01'
+versionsuffix = "-%s" % release
+
+homepage = 'http://www.quantum-espresso.org/'
+description = """Quantum ESPRESSO  is an integrated suite of computer codes
+ for electronic-structure calculations and materials modeling at the nanoscale.
+ It is based on density-functional theory, plane waves, and pseudopotentials
+  (both norm-conserving and ultrasoft)."""
+
+toolchain = {'name': 'iimpi', 'version': '2017.4'}
+toolchainopts = {'usempi': True, 'openmp': True}
+
+# Source manually downloaded from https://gitlab.com/QEF/q-e/-/archive/qe-6.2.1/q-e-qe-6.2.1.tar.gz and repackaged as qe-6.2.1.tar.gz)
+sources = [
+   'qe-%(version)s.tar.gz' # Quantum Espresso
+]
+ 
+preconfigopts = ' CC=icc LDFLAGS+="$LDFLAGS -openmp" && ' 
+preconfigopts += ' BLAS_LIBS="$MKLROOT/lib/intel64/libmkl_blas95_lp64.a" && ' 
+preconfigopts += ' LAPACK_LIBS="$MKLROOT/lib/intel64/libmkl_lapack95_lp64.a" && ' 
+preconfigopts += ' SCALAPACK_LIBS="-L$MKLROOT/lib/intel64 -lmkl_scalapack_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64" && '
+#preconfigopts += ' FFTW_LIBS="$EBROOTFFTW/lib -lfftw3 -lfftw3_omp -lfftw3_mpi -lfftw3f -lfftw3f_omp -lfftw3f_mpi" '
+configopts = ' --enable-openmp --enable-parallel --with-scalapack --disable-xml '
+
+buildopts = 'all epw'
+
+dependencies = [
+  ('FFTW', '3.3.8', '-fasrc01'),
+  ('imkl', '2017.4.239', '', ('iccifort', '2017.4.196'))
+]
+
+# a single make process is required, since parallel builds fail
+maxparallel = 1
+
+sanity_check_paths = {
+      'files': ['bin/pw.x', 'bin/cp.x'],
+      'dirs': ['']
+}
+
+moduleclass = 'chem'
