@@ -1,0 +1,19 @@
+easyblock = 'Toolchain'
+
+name = 'intel'
+version = '2017c'
+
+homepage = 'http://software.intel.com/en-us/intel-cluster-toolkit-compiler/'
+description = "Compiler toolchain including Intel compilers, Intel MPI and Intel Math Kernel Library (MKL)."
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+compver = '2017.4.196'
+dependencies = [
+    ('icc', compver),
+    ('ifort', compver),
+    ('imkl', '2017.4.239', '', ('iccifort', '%s' % compver)),
+    ('impi', '2017.4.239', '', ('iccifort', '%s' % compver)) 
+]
+
+moduleclass = 'toolchain'
