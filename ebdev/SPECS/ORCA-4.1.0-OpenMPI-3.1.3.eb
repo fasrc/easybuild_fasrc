@@ -13,14 +13,12 @@ description = """ORCA is a flexible, efficient and easy-to-use general purpose t
  and multireference correlated ab initio methods.
  It can also treat environmental and relativistic effects."""
 
-toolchain = {'name': 'dummy', 'version': ''}
+toolchain = {'name': 'gompi', 'version': '2018d'}
 
 # Download from https://orcaforum.kofo.mpg.de/app.php/dlext/
 sources = ['%%(namelower)s_%s_linux_x86-64_openmpi%s.tar.xz' % (version.replace('.', '_'), ompi_ver.replace('.', ''))]
 
 checksums = ['471a74c1f25ae22a5887311e6987b252']
-
-dependencies = [('GCC','8.2.0-2.31.1'),('OpenMPI', ompi_ver, '-GCC-8.2.0-2.31.1')]
 
 sanity_check_paths = {
     'files': ['orca_%s%s' % (x, y) for x in ['anoint', 'casscf', 'cis', 'cpscf',
