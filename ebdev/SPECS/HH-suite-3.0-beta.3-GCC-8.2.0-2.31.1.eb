@@ -8,7 +8,7 @@ homepage = 'https://github.com/soedinglab/hh-suite'
 description = """ The HH-suite is an open-source software package for sensitive protein sequence searching
  based on the pairwise alignment of hidden Markov models (HMMs). """
 
-toolchain = {'name': 'intel', 'version': '2017c'}
+toolchain = {'name': 'GCC', 'version': '8.2.0-2.31.1'}
 toolchainopts = {'pic': True}
 
 source_urls = [
@@ -24,7 +24,15 @@ checksums = [
     '3978901196ee9d34cfb1a847cf27e224d104957f1c6675d900c823a8ee78b1d9',  # ffindex-20171201.tar.gz
 ]
 
+#builddependencies = [('CMake', '3.12.1')]
+
+
 builddependencies = [('CMake', '3.9.6', '', ('dummy','dumym'))]
+
+#dependencies = [
+#	('libxml2', '2.9.8'),
+#	('libpciaccess', '0.14')
+#]
 
 preconfigopts = 'cp -a ../ffindex_soedinglab-%s/* ' % ffindex_commit
 preconfigopts += '%(builddir)s/%(namelower)s-%(version)s/lib/ffindex && '
@@ -34,6 +42,8 @@ configopts = '-DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" '
 separate_build_dir = True
 
 modextravars = {'HHLIB': '%(installdir)s'}
+
+maxparallel = 8
 
 sanity_check_paths = {
     'files': ["bin/hhalign", "bin/hhblits", "bin/hhconsensus", "bin/hhfilter", "bin/hhmake", "bin/hhsearch",
