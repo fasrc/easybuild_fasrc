@@ -7,7 +7,7 @@ commit = '99fc900'
 homepage = 'https://github.com/bayesiancook/pbmpi'
 description = "A Bayesian software for phylogenetic reconstruction using mixture models"
 
-toolchain = {'name': 'intel', 'version': '2017c'}
+toolchain = {'name': 'foss', 'version': '2018b'}
 
 source_urls = ['https://github.com/bayesiancook/pbmpi/archive']
 sources = ['%s.tar.gz' % commit]
