@@ -1,0 +1,72 @@
+# Built with EasyBuild version 3.7.1 on 2019-02-25_14-35-09
+easyblock = 'EB_EasyBuildMeta'
+
+name = 'EasyBuild'
+version = '3.8.1'
+
+homepage = 'https://easybuilders.github.io/easybuild'
+description = """EasyBuild is a software build and installation framework
+ written in Python that allows you to install software in a structured,
+ repeatable and robust way."""
+
+toolchain = {'name': 'dummy', 'version': 'dummy'}
+
+source_urls = [
+    # vsc-install
+    'https://files.pythonhosted.org/packages/18/59/3274a58af6af84a87f7655735b452c06c769586ee73954f5ee15d303aa29/',
+    # vsc-base
+    'https://files.pythonhosted.org/packages/62/e5/589612e47255627e4752d99018ae7cff8f49ab0fa6b4ba7b2226a76a05d3/',
+    # easybuild-framework
+    'https://files.pythonhosted.org/packages/14/81/21746045f034efe34f0f4efd6f193858cabb2ba4131d9eb99bb7c33b7d85/',
+    # easybuild-easyblocks
+    'https://files.pythonhosted.org/packages/d1/ba/1f5f99498fb0b5d0e07fe4403b59b42e0c1b85774b2ccb918a4806ca9c31/',
+    # easybuild-easyconfigs
+    'https://files.pythonhosted.org/packages/87/92/b4094727f29de038abc247b31a2675508bfb77c2bcbacfad4475c9961b7f/',
+]
+sources = [
+    'vsc-install-0.11.3.tar.gz',
+    'vsc-base-2.8.3.tar.gz',
+    'easybuild-framework-%(version)s.tar.gz',
+    'easybuild-easyblocks-%(version)s.tar.gz',
+    'easybuild-easyconfigs-%(version)s.tar.gz',
+]
+checksums = [
+    '8b102ba585863769d974ad117764039ac3cea21372a3baa5cdb6b93166673ad6',  # vsc-install-0.11.3.tar.gz
+    '9e102ca9d94ab97c2b974c63708dab7ea4dbaa3144787f06455e16445b92f204',  # vsc-base-2.8.3.tar.gz
+    '32eec72c868d74b2d44df2949b6ded59853439466f7a39008d6cc80b4db705f5',  # easybuild-framework-3.8.1.tar.gz
+    '15c305dd2391534e0b70f11b3e8e1be25f5bfcaaaba0219ebb563803ecd38e33',  # easybuild-easyblocks-3.8.1.tar.gz
+    '5443b0b912a797dfbffa30d5254a27a4ffb6be0fbdd0e1bd4ade4ed334003c5c',  # easybuild-easyconfigs-3.8.1.tar.gz
+]
+
+# order matters a lot, to avoid having dependencies auto-resolved (--no-deps easy_install option doesn't work?)
+# EasyBuild is a (set of) Python packages, so it depends on Python
+# usually, we want to use the system Python, so no actual Python dependency is listed
+allow_system_deps = [('Python', SYS_PYTHON_VERSION)]
+
+moduleclass = 'tools'
+
+# Build statistics
+buildstats = [{
+    "build_time": 508.3,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", '--install-latest-eb-release', "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'"],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.7.1",
+    "easybuild-framework_version": "3.7.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper; Target: x86_64-redhat-linux; Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux; Thread model: posix; gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 34815239,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1551123293,
+    "total_memory": 31894,
+}]
