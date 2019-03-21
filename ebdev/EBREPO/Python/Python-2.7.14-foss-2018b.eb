@@ -1,0 +1,106 @@
+# Built with EasyBuild version 3.8.1 on 2019-02-25_16-50-06
+name = 'Python'
+version = '2.7.14'
+
+homepage = 'http://python.org/'
+description = """Python is a programming language that lets you work more quickly and integrate your systems
+ more effectively."""
+
+toolchain = {'name': 'foss', 'version': '2018b'}  # ('OpenSSL', '1.1.0g'),
+toolchainopts = {'pic': True}
+
+source_urls = ['http://www.%(namelower)s.org/ftp/%(namelower)s/%(version)s/']
+sources = [SOURCE_TGZ]
+checksums = ['304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8']
+
+# python needs bzip2 to build the bz2 package
+dependencies = [
+    ('bzip2', '1.0.6', '', ('GCCcore', '7.3.0')),
+    ('zlib', '1.2.11', '', ('GCCcore', '7.3.0')),
+    ('libreadline', '7.0', '', ('GCCcore', '7.3.0')),
+    ('ncurses', '6.0', '', ('GCCcore', '7.3.0')),
+    ('SQLite', '3.21.0', '', ('GCCcore', '7.3.0')),
+    ('GMP', '6.1.2', '', ('GCCcore', '7.3.0')),
+    ('libffi', '3.2.1', '', ('GCCcore', '7.3.0')),
+]
+
+osdependencies = [('openssl-devel', 'libssl-dev', 'libopenssl-devel')]
+
+# order is important!
+# package versions updated January 12th 2018
+exts_list = [
+    ('setuptools', '38.4.0', {'checksums': ['6501fc32f505ec5b3ed36ec65ba48f1b975f52cf2ea101c7b73a08583fd12f75'], 'source_tmpl': '%(name)s-%(version)s.zip', 'source_urls': ['https://pypi.python.org/packages/source/s/setuptools/']}),
+    ('pip', '9.0.1', {'checksums': ['09f243e1a7b461f654c26a725fa373211bb7ff17a9300058b205c61658ca940d'], 'source_urls': ['https://pypi.python.org/packages/source/p/pip/']}),
+    ('nose', '1.3.7', {'checksums': ['f1bffef9cbc82628f6e7d7b40d7e255aefaa1adb6a1b1d26c69a8b79e6208a98'], 'source_urls': ['https://pypi.python.org/packages/source/n/nose/']}),
+    ('numpy', '1.14.0', {'checksums': ['3de643935b212307b420248018323a44ec51987a336d1d747c1322afc3c099fb', 'f212296ed289eb1b4e3f703997499dee8a2cdd0af78b55e017477487b6377ca4'], 'source_tmpl': '%(name)s-%(version)s.zip', 'patches': ['numpy-1.12.0-mkl.patch'], 'source_urls': ['https://pypi.python.org/packages/source/n/numpy/']}),
+    ('scipy', '1.0.0', {'checksums': ['87ea1f11a0e9ec08c264dc64551d501fa307289460705f6fccd84cbfc7926d10'], 'source_urls': ['https://pypi.python.org/packages/source/s/scipy/']}),
+    ('blist', '1.3.6', {'checksums': ['3a12c450b001bdf895b30ae818d4d6d3f1552096b8c995f0fe0c74bef04d1fc3'], 'source_urls': ['https://pypi.python.org/packages/source/b/blist/']}),
+    ('mpi4py', '3.0.0', {'checksums': ['b457b02d85bdd9a4775a097fac5234a20397b43e073f14d9e29b6cd78c68efd7'], 'source_urls': ['http://bitbucket.org/mpi4py/mpi4py/downloads/']}),
+    ('paycheck', '1.0.2', {'checksums': ['6db7fc367c146cd59d2327ad4d2d6b0a24bc1be2d6953bb0773cbf702ee1ed34'], 'source_urls': ['https://pypi.python.org/packages/source/p/paycheck/']}),
+    ('pbr', '3.1.1', {'checksums': ['05f61c71aaefc02d8e37c0a3eeb9815ff526ea28b3b76324769e6158d7f95be1'], 'source_urls': ['https://pypi.python.org/packages/source/p/pbr/']}),
+    ('Cython', '0.27.3', {'checksums': ['6a00512de1f2e3ce66ba35c5420babaef1fe2d9c43a8faab4080b0dbcc26bc64'], 'source_urls': ['https://pypi.python.org/packages/source/C/Cython/']}),
+    ('six', '1.11.0', {'checksums': ['70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9'], 'source_urls': ['https://pypi.python.org/packages/source/s/six/']}),
+    ('python-dateutil', '2.6.1', {'checksums': ['891c38b2a02f5bb1be3e4793866c8df49c7d19baabf9c1bad62547e0b4866aca'], 'modulename': 'dateutil', 'source_urls': ['https://pypi.python.org/packages/source/p/python-dateutil/']}),
+    ('deap', '1.2.2', {'checksums': ['95c63e66d755ec206c80fdb2908851c0bef420ee8651ad7be4f0578e9e909bcf'], 'source_urls': ['https://pypi.python.org/packages/source/d/deap/']}),
+    ('decorator', '4.1.2', {'checksums': ['7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5'], 'source_urls': ['https://pypi.python.org/packages/source/d/decorator/']}),
+    ('liac-arff', '2.1.1', {'checksums': ['b8ef2c64ae5318f6884dc0e20b8491b0b1c96151a40077a479e0f57257cab817'], 'modulename': 'arff', 'source_urls': ['https://pypi.python.org/packages/source/l/liac-arff/']}),
+    ('pycrypto', '2.6.1', {'checksums': ['f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c'], 'modulename': 'Crypto', 'source_urls': ['https://pypi.python.org/packages/source/p/pycrypto/']}),
+    ('ecdsa', '0.13', {'checksums': ['64cf1ee26d1cde3c73c6d7d107f835fed7c6a2904aef9eac223d57ad800c43fa'], 'source_urls': ['https://pypi.python.org/packages/source/e/ecdsa/']}),
+    ('enum34', '1.1.6', {'checksums': ['8ad8c4783bf61ded74527bffb48ed9b54166685e4230386a9ed9b1279e2df5b1'], 'modulename': 'enum', 'source_urls': ['https://pypi.python.org/packages/source/e/enum34/']}),
+    ('ipaddress', '1.0.22', {'checksums': ['b146c751ea45cad6188dd6cf2d9b757f6f4f8d6ffb96a023e6f2e26eea02a72c'], 'source_urls': ['https://pypi.python.org/packages/source/i/ipaddress/']}),
+    ('asn1crypto', '0.24.0', {'checksums': ['9d5c20441baf0cb60a4ac34cc447c6c189024b6b4c6cd7877034f4965c464e49'], 'source_urls': ['https://pypi.python.org/packages/source/a/asn1crypto/']}),
+    ('idna', '2.6', {'checksums': ['2c6a5de3089009e3da7c5dde64a141dbc8551d5b7f6cf4ed7c2568d0cc520a8f'], 'source_urls': ['https://pypi.python.org/packages/source/i/idna/']}),
+    ('cryptography', '2.1.4', {'checksums': ['e4d967371c5b6b2e67855066471d844c5d52d210c36c28d49a8507b96e2c5291'], 'source_urls': ['https://pypi.python.org/packages/source/c/cryptography/']}),
+    ('pyasn1', '0.4.3', {'checksums': ['fb81622d8f3509f0026b0683fe90fea27be7284d3826a5f2edf97f69151ab0fc'], 'source_urls': ['https://pypi.python.org/packages/source/p/pyasn1/']}),
+    ('pycparser', '2.18', {'checksums': ['99a8ca03e29851d96616ad0404b4aad7d9ee16f25c9f9708a11faf2810f7b226'], 'source_urls': ['https://pypi.python.org/packages/source/p/pycparser/']}),
+    ('cffi', '1.11.5', {'checksums': ['e90f17980e6ab0f3c2f3730e56d1fe9bcba1891eeea58966e89d352492cc74f4'], 'source_urls': ['https://pypi.python.org/packages/source/c/cffi/']}),
+    ('PyNaCl', '1.2.1', {'checksums': ['e0d38fa0a75f65f556fb912f2c6790d1fa29b7dd27a1d9cc5591b281321eaaa9'], 'modulename': 'nacl', 'source_urls': ['https://pypi.python.org/packages/source/p/pynacl/']}),
+    ('bcrypt', '3.1.4', {'checksums': ['67ed1a374c9155ec0840214ce804616de49c3df9c5bc66740687c1c9b1cd9e8d'], 'source_urls': ['https://pypi.python.org/packages/source/b/bcrypt/']}),
+    ('paramiko', '2.4.0', {'checksums': ['486f637f0a33a4792e0e567be37426c287efaa8c4c4a45e3216f9ce7fd70b1fc'], 'source_urls': ['https://pypi.python.org/packages/source/p/paramiko/']}),
+    ('pyparsing', '2.2.0', {'checksums': ['0832bcf47acd283788593e7a0f542407bd9550a55a8a8435214a1960e04bcb04'], 'source_urls': ['https://pypi.python.org/packages/source/p/pyparsing/']}),
+    ('netifaces', '0.10.6', {'checksums': ['0c4da523f36d36f1ef92ee183f2512f3ceb9a9d2a45f7d19cda5a42c6689ebe0'], 'source_urls': ['https://pypi.python.org/packages/source/n/netifaces/']}),
+    ('netaddr', '0.7.19', {'checksums': ['38aeec7cdd035081d3a4c306394b19d677623bf76fa0913f6695127c7753aefd'], 'source_urls': ['https://pypi.python.org/packages/source/n/netaddr/']}),
+    ('funcsigs', '1.0.2', {'checksums': ['a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50'], 'source_urls': ['https://pypi.python.org/packages/source/f/funcsigs/']}),
+    ('mock', '2.0.0', {'checksums': ['b158b6df76edd239b8208d481dc46b6afd45a846b7812ff0ce58971cf5bc8bba'], 'source_urls': ['https://pypi.python.org/packages/source/m/mock/']}),
+    ('pytz', '2017.3', {'checksums': ['fae4cffc040921b8a2d60c6cf0b5d662c1190fe54d718271db4eb17d44a185b7'], 'source_tmpl': '%(name)s-%(version)s.zip', 'source_urls': ['https://pypi.python.org/packages/source/p/pytz/']}),
+    ('pandas', '0.22.0', {'checksums': ['44a94091dd71f05922eec661638ec1a35f26d573c119aa2fad964f10a2880e6c'], 'source_urls': ['https://pypi.python.org/packages/source/p/pandas/']}),
+    ('bitstring', '3.1.5', {'checksums': ['c163a86fcef377c314690051885d86b47419e3e1770990c212e16723c1c08faa'], 'source_tmpl': '%(name)s-%(version)s.zip', 'source_urls': ['https://pypi.python.org/packages/source/b/bitstring/']}),
+    ('virtualenv', '15.1.0', {'checksums': ['02f8102c2436bb03b3ee6dede1919d1dac8a427541652e5ec95171ec8adbc93a'], 'source_urls': ['https://pypi.python.org/packages/source/v/virtualenv/']}),
+    ('docopt', '0.6.2', {'checksums': ['49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491'], 'source_urls': ['https://pypi.python.org/packages/source/d/docopt/']}),
+    ('joblib', '0.11', {'checksums': ['7b8fd56df36d9731a83729395ccb85a3b401f62a96255deb1a77220c00ed4085'], 'source_urls': ['https://pypi.python.org/packages/source/j/joblib/']}),
+    ('chardet', '3.0.4', {'checksums': ['84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae'], 'source_urls': ['https://pypi.python.org/packages/source/c/chardet/']}),
+    ('certifi', '2018.4.16', {'checksums': ['13e698f54293db9f89122b0581843a782ad0934a4fe0172d2a980ba77fc61bb7'], 'source_urls': ['https://pypi.python.org/packages/source/c/certifi/']}),
+    ('urllib3', '1.22', {'checksums': ['cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f'], 'source_urls': ['https://pypi.python.org/packages/source/u/urllib3/']}),
+    ('requests', '2.18.4', {'checksums': ['9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e'], 'source_urls': ['https://pypi.python.org/packages/source/r/requests/']}),
+    ('xlrd', '1.1.0', {'checksums': ['8a21885513e6d915fe33a8ee5fdfa675433b61405ba13e2a69e62ee36828d7e2'], 'source_urls': ['https://pypi.python.org/packages/source/x/xlrd']}),
+    ('py_expression_eval', '0.3.4', {'checksums': ['b9662c58f8835f6fa3380990f870429fe1176008718a47ce054a7867c4091ad8'], 'source_urls': ['https://pypi.python.org/packages/source/p/py_expression_eval']}),
+]
+exts_download_dep_fail = True
+
+moduleclass = 'lang'
+
+# Build statistics
+buildstats = [{
+    "build_time": 3096.57,
+    "command_line": ["--buildpath='/builds/pedmon/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", "--robot='/builds/pedmon/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/Core/EasyBuild/3.8.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.8.1-py2.7.egg/easybuild/easyconfigs:/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/builds/pedmon/easybuild_fasrc/ebdev/SPECS::/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/builds/pedmon/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='foss,2018b'", "--umask='002'", 'MRtrix-3.0_RC3-intel-2018a-Python-2.7.14.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.8.1",
+    "easybuild-framework_version": "3.8.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/libexec/gcc/x86_64-pc-linux-gnu/7.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --enable-bootstrap --with-isl=/scratch/pkrastev/easybuild/GCCcore/7.3.0/dummy-/gcc-7.3.0/stage2_stuff; Thread model: posix; gcc version 7.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 451616087,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1551131401,
+    "total_memory": 31894,
+}]

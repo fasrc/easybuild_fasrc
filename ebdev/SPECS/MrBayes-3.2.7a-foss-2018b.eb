@@ -1,0 +1,25 @@
+name = 'MrBayes'
+version = '3.2.7a'
+easyblock = 'ConfigureMake'
+
+homepage = 'http://mrbayes.csit.fsu.edu'
+description = "MrBayes is a program for the Bayesian estimation of phylogeny."
+
+toolchain = {'name': 'foss', 'version': '2018b'}
+toolchainopts = {'usempi': True}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources = [SOURCELOWER_TAR_GZ]
+
+dependencies = [
+    ('beagle-lib','3.0.2'),
+    ('libreadline','6.3'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin'],
+}
+
+
+moduleclass = 'bio'
