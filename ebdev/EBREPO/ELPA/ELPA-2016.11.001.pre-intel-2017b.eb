@@ -1,0 +1,81 @@
+# Built with EasyBuild version 3.8.1 on 2019-03-13_13-13-15
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Authors::   Inge Gutheil <i.gutheil@fz-juelich.de>, Alan O'Cais <a.ocais@fz-juelich.de>
+# License::   MIT/GPL
+# $Id$
+#
+##
+easyblock = 'ConfigureMake'
+
+name = 'ELPA'
+version = '2016.11.001.pre'
+
+homepage = 'http://elpa.mpcdf.mpg.de'
+description = "Eigenvalue SoLvers for Petaflop-Applications ."
+
+toolchain = {'name': 'intel', 'version': '2017b'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['http://%(namelower)s.mpcdf.mpg.de/html/Releases/%(version)s/']
+sources = [SOURCELOWER_TAR_GZ]
+patches = ['%(name)s-%(version)s_install-libelpatest.patch']
+checksums = [
+    '69b67f0f6faaa2b3b5fd848127b632be32771636d2ad04583c5269d550956f92',  # %(namelower)s-%(version)s.tar.gz
+    'aaee4cbe02a2f2e0b6fa76c1503d049e2958d949f4be13dfa8be9c60043a328b',
+]
+
+builddependencies = [
+    ('Autotools', '20180311', '', ('GCCcore', '6.4.0')),
+]
+
+preconfigopts = "autoreconf && "
+configopts = [
+    'FCFLAGS="-I$EBROOTIMKL/mkl/include/intel64/lp64 $FCFLAGS" LIBS="$LIBSCALAPACK" --enable-openmp ',
+    'FCFLAGS="-I$EBROOTIMKL/mkl/include/intel64/lp64 $FCFLAGS" LIBS="$LIBSCALAPACK" ',
+]
+
+# Autotools 20180311 makes configure create some files that causes problem
+# Remove them.
+prebuildopts = "make clean && "
+buildopts = " V=1 "
+
+postinstallcmds = [
+    "cp config.h config-f90.h %(installdir)s/share/doc/%(namelower)s/examples",
+    "ln -s %(namelower)s-%(version)s/%(namelower)s %(installdir)s/include",
+    "ln -s %(namelower)s-%(version)s/modules %(installdir)s/include",
+]
+
+sanity_check_paths = {
+    'files': ['lib/libelpa.a', 'lib/libelpa.so', 'lib/libelpa_openmp.a', 'lib/libelpa_openmp.so', 'lib/libelpatest.a', 'lib/libelpatest.so', 'lib/libelpatest_openmp.a', 'lib/libelpatest_openmp.so', 'share/doc/%(namelower)s/examples/config.h', 'share/doc/%(namelower)s/examples/config-f90.h'],
+    'dirs': ['bin', 'include/%(namelower)s-%(version)s/%(namelower)s', 'include/%(namelower)s-%(version)s/modules', 'lib/pkgconfig'],
+}  # without openmp.
+
+moduleclass = 'math'
+
+# Build statistics
+buildstats = [{
+    "build_time": 417.79,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/Core/EasyBuild/3.8.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.8.1-py2.7.egg/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='intel,2017b'", "--umask='002'", 'QuantumESPRESSO-6.3-intel-2018b.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.8.1",
+    "easybuild-framework_version": "3.8.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 13006149,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1552497194,
+    "total_memory": 31894,
+}]

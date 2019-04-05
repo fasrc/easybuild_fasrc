@@ -1,0 +1,80 @@
+# Built with EasyBuild version 3.8.1 on 2019-03-13_19-04-49
+name = 'QuantumESPRESSO'
+version = '6.3'
+
+homepage = 'https://www.quantum-espresso.org'
+description = """Quantum ESPRESSO  is an integrated suite of computer codes
+ for electronic-structure calculations and materials modeling at the nanoscale.
+ It is based on density-functional theory, plane waves, and pseudopotentials
+  (both norm-conserving and ultrasoft).
+"""
+
+toolchain = {'name': 'intel', 'version': '2017b'}  # QuantumESPRESSO-6.3_drop_LIBS_before_configure_of_fox.patch
+toolchainopts = {'usempi': True, 'openmp': True}
+
+# major part of this list was determined from espresso/install/plugins_list
+# - There is currently no plumed version that works for QME 6.3
+# - Yambo is better to install outside of QM-E, there are problems
+#   building it with openmp turned on and the intel toolchain and there is
+#   no added benefit to build it inside QM-E
+# - Want is never installed in bin/ (since it first shows up in 4.2) so
+#   don't bother building it here.
+source_urls = [
+    'https://github.com/QEF/q-e/releases/download/qe-%(version)s/',
+    'https://github.com/dceresoli/qe-gipaw/archive/',
+]
+sources = [
+    'qe-%(version)s.tar.gz',
+    {'download_filename': '%(version)s.tar.gz', 'filename': 'qe-gipaw-%(version)s.tar.gz'},
+    'wannier90-2.1.0.tar.gz',
+]
+patches = ['%(name)s-%(version)s_drop_LIBS_before_configure_of_fox.patch']
+checksums = [
+    '5d15f7cbb30ccb2e2e6722bc1cdf10a3aae909ae786654b0990068ed1846ad65',  # qe-%(version)s.tar.gz
+    '090edfcc186047a12c596ec13fdb29c187ab33d91a44c08371f23e779bb15f1e',  # qe-gipaw-%(version)s.tar.gz
+    '77be6a0764e0b7f4f00182ac9bf0d9ed4f4771abbae58c095021c2fbe574de08',  # wannier90-2.1.0.tar.gz
+    '714fef8be920a5a7c6afe81a7364978c00d76d6d39f79b8b18862c1598ea6af3',
+]
+
+dependencies = [
+    ('HDF5', '1.10.2'),
+    ('ELPA', '2016.11.001.pre'),
+    ('libxc', '4.2.3'),
+]
+
+# The third party packages should be installed separately and added as
+# dependencies.  The exception is w90, which is force built, and gipaw
+# which depends on qe source
+buildopts = "all gwl xspectra couple epw gipaw w90"
+
+# parallel build tends to fail
+parallel = 1
+
+
+moduleclass = 'chem'
+
+# Build statistics
+buildstats = [{
+    "build_time": 2478.84,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/Core/EasyBuild/3.8.1/lib/python2.7/site-packages/easybuild_easyconfigs-3.8.1-py2.7.egg/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='intel,2017b'", "--umask='002'", './QuantumESPRESSO-6.3-intel-2018b.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.8.1",
+    "easybuild-framework_version": "3.8.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 4284691903,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.4.1708",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Aug  4 2017, 00:39:18) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1552518289,
+    "total_memory": 31894,
+}]
