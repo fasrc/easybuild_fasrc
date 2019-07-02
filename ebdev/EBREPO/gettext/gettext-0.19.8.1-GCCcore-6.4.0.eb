@@ -1,0 +1,60 @@
+# Built with EasyBuild version 3.9.2 on 2019-06-26_17-39-45
+easyblock = 'ConfigureMake'
+
+name = 'gettext'
+version = '0.19.8.1'
+
+homepage = 'http://www.gnu.org/software/gettext/'
+description = """GNU 'gettext' is an important step for the GNU Translation Project, as it is an asset on which we may
+build many other steps. This package offers to programmers, translators, and even users, a well integrated set of tools
+and documentation"""
+
+toolchain = {'name': 'GCCcore', 'version': '6.4.0'}
+
+source_urls = [GNU_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['ff942af0e438ced4a8b0ea4b0b6e0d6d657157c5e2364de57baa279c1c125c43']
+
+dependencies = [
+    ('libxml2', '2.9.4'),
+    ('ncurses', '6.0'),
+]
+
+# use same binutils version that was used when building GCCcore toolchain
+builddependencies = [('binutils', '2.28')]
+
+configopts = '--without-emacs --with-libxml2-prefix=$EBROOTLIBXML2'
+
+sanity_check_paths = {
+    'files': ['bin/gettext', 'lib/libasprintf.a', 'lib/libasprintf.%s' % SHLIB_EXT,
+              'lib/libgettextpo.a', 'lib/libgettextpo.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'tools'
+
+# Build statistics
+buildstats = [{
+    "build_time": 492.2,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/Core/EasyBuild/3.9.2/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.2-py2.7.egg/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'Amber-18-intel-2017b-AmberTools-18-patchlevel-10-8.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.9.2",
+    "easybuild-framework_version": "3.9.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/libexec/gcc/x86_64-pc-linux-gnu/6.4.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/6.4.0/dummy-/gcc-6.4.0/stage2_stuff; Thread model: posix; gcc version 6.4.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 16236691,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  9 2019, 14:30:50) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/6.4.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1561585184,
+    "total_memory": 31891,
+}]
