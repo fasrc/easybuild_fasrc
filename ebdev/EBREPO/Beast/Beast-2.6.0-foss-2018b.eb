@@ -1,0 +1,58 @@
+# Built with EasyBuild version 3.9.2 on 2019-12-19_11-26-07
+easyblock = "Tarball"
+
+name = 'Beast'
+version = "2.6.0"
+
+homepage = 'http://beast2.org/'
+description = """ BEAST is a cross-platform program for Bayesian MCMC analysis of molecular 
+ sequences. It is entirely orientated towards rooted, time-measured phylogenies inferred using 
+ strict or relaxed molecular clock models. It can be used as a method of reconstructing phylogenies 
+ but is also a framework for testing evolutionary hypotheses without conditioning on a single 
+ tree topology. BEAST uses MCMC to average over tree space, so that each tree is weighted 
+ proportional to its posterior probability. """
+
+toolchain = {'name': 'foss', 'version': '2018b'}
+
+source_urls = ['https://github.com/CompEvol/beast2/releases/download/v%(version)s/']
+sources = ['BEAST.v%(version)s.Linux.tgz']
+checksums = []
+dependencies = [
+    # this is not mandatory but beagle-lib is recommended by developers
+    # beagle-lib will also load the required java dependency
+    # if you remove this you should add the java dependency
+    ('beagle-lib', '3.0.2'),
+]
+
+sanity_check_paths = {
+    'files': ["bin/beast"],
+    'dirs': []
+}
+
+moduleclass = 'bio'
+
+# Build statistics
+buildstats = [{
+    "build_time": 129.08,
+    "command_line": ["--buildpath='/builds/pedmon/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", "--robot='/builds/pedmon/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/Core/EasyBuild/3.9.2/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.2-py2.7.egg/easybuild/easyconfigs:/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/builds/pedmon/easybuild_fasrc/ebdev/SPECS::/builds/pedmon/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/builds/pedmon/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-software-version='2.6.0'", "--umask='002'", 'Beast-2.5.1-foss-2018b.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "3.9.2",
+    "easybuild-framework_version": "3.9.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/libexec/gcc/x86_64-pc-linux-gnu/7.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-gold=default --enable-plugins --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0 --enable-bootstrap --with-isl=/scratch/pkrastev/easybuild/GCCcore/7.3.0/dummy-/gcc-7.3.0/stage2_stuff; Thread model: posix; gcc version 7.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 10676858,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  9 2019, 14:30:50) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/Core/GCCcore/7.3.0/bin/gcc",
+    "system_python_path": "/usr/bin/python",
+    "timestamp": 1576772767,
+    "total_memory": 31891,
+}]
