@@ -1,0 +1,51 @@
+# Built with EasyBuild version 4.1.1 on 2020-02-18_15-14-57
+easyblock = 'Bundle'
+
+name = 'Autotools'
+version = '20170619'  # date of the most recent change
+
+homepage = 'http://autotools.io'
+description = """
+ This bundle collect the standard GNU build tools: Autoconf, Automake
+ and libtool
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '8.3.0'}
+
+dependencies = [
+    ('Autoconf', '2.69'),  # 20120424
+    ('Automake', '1.15.1'),  # 20170619
+    ('libtool', '2.4.6'),  # 20150215
+]
+
+
+# Pure bundle -- no need to specify 'binutils' used when building GCCcore
+# toolchain as build dependency
+
+moduleclass = 'devel'
+
+# Build statistics
+buildstats = [{
+    "build_time": 69.27,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.1.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='intel,2019b'", "--umask='002'", 'arpack-ng-3.6.2-intel-2018a.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.1.1",
+    "easybuild-framework_version": "4.1.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/8.3.0/libexec/gcc/x86_64-pc-linux-gnu/8.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/8.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/8.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/8.3.0/system-system/gcc-8.3.0/stage2_stuff; Thread model: posix; gcc version 8.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 8129,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  9 2019, 14:30:50) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/8.3.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1582056897,
+    "total_memory": 31891,
+}]

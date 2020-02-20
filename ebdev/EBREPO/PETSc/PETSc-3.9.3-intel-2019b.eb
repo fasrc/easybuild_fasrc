@@ -1,0 +1,69 @@
+# Built with EasyBuild version 4.1.1 on 2020-02-13_16-41-43
+name = 'PETSc'
+version = '3.9.3'
+
+homepage = 'http://www.mcs.anl.gov/petsc'
+description = """PETSc, pronounced PET-see (the S is silent), is a suite of data structures and routines for the
+ scalable (parallel) solution of scientific applications modeled by partial differential equations."""
+
+toolchain = {'name': 'intel', 'version': '2019b'}
+toolchainopts = {'usempi': True, 'pic': True}
+
+source_urls = ['http://ftp.mcs.anl.gov/pub/%(namelower)s/release-snapshots']
+sources = [SOURCELOWER_TAR_GZ]
+patches = [
+    'PETSc_ranlib-fix.patch',
+    '%(name)s-%(version)s_fix-AVX512.patch',
+]
+checksums = [
+    '6c7f2c7a28433385d74d647b4934aaeea3c1b3053b207973c9497639b6ebf7c8',  # %(namelower)s-%(version)s.tar.gz
+    '64cf9d5008d5e92117e65bdec5316d991b6a6b8c8ecf7ea46eb790a498266297',  # PETSc_ranlib-fix.patch
+    'f11e3d7c36ec9939b10550c9913320e0ee4b34585bdf9458977548686f90bfa8',  # %(name)s-%(version_major_minor)s.3_fix-AVX512.patch
+]
+
+builddependencies = [
+    ('CMake', '3.10.2', '', ('GCCcore', '8.3.0')),
+]
+dependencies = [
+    ('Boost', '1.66.0'),
+    ('METIS', '5.1.0', '', ('GCCcore', '8.3.0')),
+    ('ParMETIS', '4.0.3'),
+    ('SCOTCH', '6.0.6'),
+    ('SuiteSparse', '5.1.2', '-METIS-5.1.0'),
+    ('Hypre', '2.14.0'),
+]
+
+configopts = '--LIBS="$LIBS -lrt" '
+
+
+# only required when building PETSc in a SLURM job environment
+# configopts += '--with-batch=1 --known-mpi-shared-libraries=1 --known-64-bit-blas-indices=0 '
+# prebuildopts = "srun ./conftest-arch-linux2-c-opt && ./reconfigure-arch-linux2-c-opt.py && "
+
+moduleclass = 'numlib'
+
+# Build statistics
+buildstats = [{
+    "build_time": 769.25,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.1.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='intel,2019b'", "--umask='002'", 'PETSc-3.9.3-intel-2018a.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.1.1",
+    "easybuild-framework_version": "4.1.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/8.3.0/libexec/gcc/x86_64-pc-linux-gnu/8.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/8.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/8.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/8.3.0/system-system/gcc-8.3.0/stage2_stuff; Thread model: posix; gcc version 8.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 122898860,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  9 2019, 14:30:50) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/8.3.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1581630102,
+    "total_memory": 31891,
+}]
