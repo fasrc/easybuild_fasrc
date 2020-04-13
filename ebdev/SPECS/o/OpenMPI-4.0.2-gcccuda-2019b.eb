@@ -1,0 +1,24 @@
+name = 'OpenMPI'
+version = '4.0.2'
+
+homepage = 'https://www.open-mpi.org/'
+description = """The Open MPI Project is an open source MPI-3 implementation."""
+
+toolchain = {'name': 'gcccuda', 'version': '2019b'}
+
+source_urls = ['https://www.open-mpi.org/software/ompi/v%(version_major_minor)s/downloads']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['662805870e86a1471e59739b0c34c6f9004e0c7a22db068562d5388ec4421904']
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('hwloc', '1.11.12')
+]
+
+configopts = '--enable-mpi1-compatibility '
+configopts += '--enable-static --enable-mpi-fortran=all --enable-mpi-cxx'
+# to enable SLURM integration (site-specific)
+configopts += '--with-slurm --without-verbs --with-ucx --with-pmi --with-pmix'
+configopts += '--enable-mca-no-build=btl-uct --with-libevent=/usr'
+
+moduleclass = 'mpi'

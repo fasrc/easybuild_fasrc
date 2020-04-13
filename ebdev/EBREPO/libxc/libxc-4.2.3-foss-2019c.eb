@@ -1,0 +1,54 @@
+# Built with EasyBuild version 4.1.1 on 2020-04-09_19-59-34
+easyblock = 'ConfigureMake'
+
+name = 'libxc'
+version = '4.2.3'
+
+homepage = 'https://www.tddft.org/programs/libxc'
+description = """Libxc is a library of exchange-correlation functionals for density-functional theory.
+ The aim is to provide a portable, well tested and reliable set of exchange and correlation functionals."""
+
+toolchain = {'name': 'foss', 'version': '2019c'}
+
+source_urls = ['https://www.tddft.org/programs/%(name)s/down.php?file=%(version)s/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['02e49e9ba7d21d18df17e9e57eae861e6ce05e65e966e1e832475aa09e344256']
+
+configopts = "--enable-static --enable-shared --enable-fortran"
+
+parallel = 1
+
+runtest = 'check'
+
+sanity_check_paths = {
+    'files': ['lib/%(name)s.a', 'lib/%(name)s.so', 'lib/libxcf90.a', 'lib/libxcf90.so'],
+    'dirs': ['include'],
+}
+
+moduleclass = 'chem'
+
+# Build statistics
+buildstats = [{
+    "build_time": 1482.75,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.1.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--try-toolchain='foss,2019c'", "--umask='002'", 'libxc-4.2.3-foss-2018b.eb'],
+    "core_count": 48,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.1.1",
+    "easybuild-framework_version": "4.1.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/9.2.0/libexec/gcc/x86_64-pc-linux-gnu/9.2.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/9.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/9.2.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/9.2.0/system-system/gcc-9.2.0/stage2_stuff; Thread model: posix; gcc version 9.2.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 27397114,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.6.1810",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  9 2019, 14:30:50) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/9.2.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1586476773,
+    "total_memory": 31891,
+}]
