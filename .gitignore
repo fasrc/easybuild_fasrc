@@ -1,4 +1,8 @@
 easyconfigs
 ebdev/BUILD
 ebdev/SOURCES/*
+ebdev/SPECS/*/*/*gz
+ebdev/SPECS/*/*/*zip
+ebdev/SPECS/*/*/*tar
+ebdev/SPECS/*/*/*bz2
 !ebdev/SOURCES/.gitkeep
