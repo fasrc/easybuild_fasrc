@@ -1,0 +1,55 @@
+# Built with EasyBuild version 4.3.2 on 2021-04-22_18-01-17
+easyblock = 'ConfigureMake'
+
+name = 'libpciaccess'
+version = '0.16'
+
+homepage = 'https://cgit.freedesktop.org/xorg/lib/libpciaccess/'
+description = """Generic PCI access library."""
+
+toolchain = {'name': 'GCCcore', 'version': '9.3.0'}
+
+source_urls = ['https://www.x.org/releases/individual/lib/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['84413553994aef0070cf420050aa5c0a51b1956b404920e21b81e96db6a61a27']
+
+builddependencies = [
+    ('binutils', '2.34'),
+    ('Autotools', '20180311'),
+    ('xorg-macros', '1.19.2'),
+]
+
+sanity_check_paths = {
+    'files': ['include/pciaccess.h', 'lib/libpciaccess.a'],
+    'dirs': ['lib/pkgconfig'],
+}
+
+moduleclass = 'system'
+
+# Build statistics
+buildstats = [{
+    "build_time": 29.36,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.3.2/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './OpenMPI-4.0.3-GCC-9.3.0.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.3.2",
+    "easybuild-framework_version": "4.3.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/9.3.0/libexec/gcc/x86_64-pc-linux-gnu/9.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/9.3.0/system-system/gcc-9.3.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; gcc version 9.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 213612,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.8.2003",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  2 2020, 13:16:51) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/9.3.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1619128877,
+    "total_memory": 31912,
+}]

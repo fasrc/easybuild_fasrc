@@ -1,0 +1,87 @@
+# Built with EasyBuild version 4.4.1 on 2021-09-28_18-34-28
+easyblock = 'ConfigureMake'
+
+name = 'GDRCopy'
+version = '2.1'
+local_cudaversion = '11.1.1'
+versionsuffix = '-CUDA-%s' % local_cudaversion
+
+homepage = 'https://github.com/NVIDIA/gdrcopy'
+description = "A low-latency GPU memory copy library based on NVIDIA GPUDirect RDMA technology."
+
+toolchain = {'name': 'GCCcore', 'version': '10.2.0'}
+toolchainopts = {'pic': True}
+
+github_account = 'NVIDIA'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['cecc7dcc071107f77396f5553c9109790b6d2298ae29eb2dbbdd52b2a213e4ea']
+
+builddependencies = [
+    ('binutils', '2.35'),
+    ('Autotools', '20200321'),
+    ('pkg-config', '0.29.2'),
+]
+
+dependencies = [
+    ('CUDAcore', local_cudaversion, '', True),  # needed by GDRCopy binaries, which are tools for testing
+    ('Check', '0.15.2'),
+]
+
+# This easyconfig only installs the library and binaries of GDRCopy. Please
+# keep in mind that GDRCopy also needs the following kernel modules at runtime:
+#
+# 1. Kernel module for GDRCopy: improves Host to GPU communication
+#    https://github.com/NVIDIA/gdrcopy
+#    RPM: 'gdrcopy-kmod', DEB: 'gdrdrv-dkms'
+#    Requirements: version of GDRCopy kernel module (gdrdrv.ko) >= 2.0
+#
+# 2. (optional) Kernel module for GPUDirect RDMA: improves GPU to GPU communication
+#    https://github.com/Mellanox/nv_peer_memory
+#    RPM: 'nvidia_peer_memory'
+#    Requirements: Mellanox HCA with MLNX_OFED 2.1
+#
+# These kernel modules are not listed as system dependencies to lower the system
+# requirements to build this easyconfig, as they are not needed for the build.
+
+skipsteps = ['configure']
+
+local_envopts = "PREFIX=%(installdir)s CUDA=$EBROOTCUDACORE"
+prebuildopts = "PATH=$PATH:/sbin "  # ensures that ldconfig is found
+buildopts = "config lib exes %s" % local_envopts
+installopts = local_envopts
+
+sanity_check_paths = {
+    'files': ['bin/copybw', 'bin/copylat', 'bin/sanity', 'lib/libgdrapi.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'
+
+# Build statistics
+buildstats = [{
+    "build_time": 20.42,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.4.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './OpenMPI-4.0.5-gcccuda-2020b.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.4.1",
+    "easybuild-framework_version": "4.4.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.2.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 211641,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.9.2009",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Nov 16 2020, 22:23:17) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.2.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1632868467,
+    "total_memory": 31912,
+}]

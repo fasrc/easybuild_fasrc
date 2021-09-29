@@ -56,5 +56,6 @@ module load EasyBuild
 eb --version
 
 # set EASYBUILD_ROBOT_PATHS
-export EB_RP=$EBROOTEASYBUILD/lib/python2.7/site-packages/easybuild_easyconfigs-$EBVERSIONEASYBUILD-py2.7.egg/easybuild/easyconfigs
+export EB_RP=$EBROOTEASYBUILD/easybuild/easyconfigs
+#export EB_RP=/n/sw/eb/apps/centos7/Core/EasyBuild/3.9.2/lib/python2.7/site-packages/easybuild_easyconfigs-3.9.2-py2.7.egg/easybuild/easyconfigs
 export EASYBUILD_ROBOT_PATHS=$FASRCSW_DEV/ebdev/SPECS:$EB_RP:$FASRCSW_DEV/ebdev/EBREPO

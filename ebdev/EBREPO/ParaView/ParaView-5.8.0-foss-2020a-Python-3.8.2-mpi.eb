@@ -1,0 +1,87 @@
+# Built with EasyBuild version 4.3.2 on 2021-04-29_11-33-16
+easyblock = 'CMakeMake'
+
+name = 'ParaView'
+version = '5.8.0'
+versionsuffix = '-Python-%(pyver)s-mpi'
+
+homepage = "https://www.paraview.org"
+description = "ParaView is a scientific parallel visualizer."
+
+toolchain = {'name': 'foss', 'version': '2020a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+local_download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=source&os=all&downloadFile='
+source_urls = ['https://www.paraview.org/paraview-downloads/%s' % local_download_suffix]
+sources = ["ParaView-v%(version)s.tar.xz"]
+checksums = ['219e4107abf40317ce054408e9c3b22fb935d464238c1c00c0161f1c8697a3f9']
+
+dependencies = [
+    ('Python', '3.8.2'),
+    ('SciPy-bundle', '2020.03', '-Python-3.8.2'),
+    ('XZ', '5.2.5'),
+    ('HDF5', '1.10.6'),
+    ('netCDF', '4.7.4'),
+    ('libGLU', '9.0.1'),
+    ('X11', '20200222'),
+    ('Mesa', '20.0.2'),
+    ('Qt5', '5.14.1'),
+    ('zlib', '1.2.11'),
+    ('FFmpeg', '4.2.2'),
+    ('Szip', '2.1.1'),
+]
+
+builddependencies = [('CMake', '3.16.4')]
+
+separate_build_dir = True
+
+# Paraview
+configopts = '-DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON -DPARAVIEW_BUILD_SHARED_LIBS=ON '
+configopts += '-DPARAVIEW_USE_MPI=ON '
+configopts += '-DPARAVIEW_ENABLE_FFMPEG=ON '
+configopts += '-DPARAVIEW_USE_PYTHON=ON '
+configopts += '-DPython3_ROOT_DIR=$EBROOTPYTHON '
+
+# OpenGL & Mesa
+configopts += '-DOPENGL_glu_LIBRARY=$EBROOTLIBGLU/lib/libGLU.%s ' % SHLIB_EXT
+configopts += '-DOPENGL_INCLUDE_DIR=$EBROOTMESA/include'
+configopts += '-DVTK_OPENGL_HAS_OSMESA=ON '
+
+sanity_check_paths = {
+    'files': ['bin/paraview', 'bin/pvpython'],
+    'dirs': ['include/paraview-%(version_major_minor)s', 'lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['python -c "import paraview"']
+
+modextrapaths = {'PYTHONPATH': ['lib64/python%(pyshortver)s/site-packages', 'lib/python%(pyshortver)s/site-packages']}
+
+moduleclass = 'vis'
+
+# Build statistics
+buildstats = [{
+    "build_time": 1276.16,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.3.2/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'ParaView-5.8.0-foss-2020a-Python-3.8.2-mpi.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.3.2",
+    "easybuild-framework_version": "4.3.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/9.3.0/libexec/gcc/x86_64-pc-linux-gnu/9.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/9.3.0/system-system/gcc-9.3.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; gcc version 9.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 849828522,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.8.2003",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  2 2020, 13:16:51) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/9.3.0/bin/gcc",
+    "system_python_path": "/n/sw/eb/apps/centos7/Python/3.8.2-GCCcore-9.3.0/bin/python",
+    "timestamp": 1619710395,
+    "total_memory": 31912,
+}]

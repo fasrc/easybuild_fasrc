@@ -1,0 +1,6 @@
+
+Gurobi 9.1.2 (linux64, gurobi_cl) logging started Mon Jun 21 16:15:44 2021
+
+Using license file /n/sw/eb/apps/centos7/Gurobi/9.1.2/gurobi.lic
+Set parameter TokenServer to value rclic1.rc.fas.harvard.edu
+Set parameter LogFile to value gurobi.log

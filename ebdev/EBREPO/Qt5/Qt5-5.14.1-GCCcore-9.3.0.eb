@@ -1,0 +1,97 @@
+# Built with EasyBuild version 4.3.2 on 2021-04-29_15-01-20
+easyblock = 'EB_Qt'
+
+name = 'Qt5'
+version = '5.14.1'
+
+homepage = 'https://qt.io/'
+description = "Qt is a comprehensive cross-platform C++ application framework."
+
+toolchain = {'name': 'GCCcore', 'version': '9.3.0'}
+# disabling use of -ftree-vectorize is required to avoid compilation failures on some systems (e.g. Intel Skylake X)
+toolchainopts = {'vectorize': False}
+
+source_urls = [
+    'https://download.qt.io/official_releases/qt/%(version_major_minor)s/%(version)s/single/',
+    'https://download.qt.io/archive/qt/%(version_major_minor)s/%(version)s/single/'
+]
+sources = ['qt-everywhere-src-%(version)s.tar.xz']
+patches = [
+    'Qt5-5.13.1_fix-avx2.patch',
+    'Qt5-5.13.1_fix-qmake-libdir.patch',
+    'Qt5-5.14.1_fix-mantissatable.patch',
+    'Qt5-5.14.1_fix-OF-Gentoo.patch',
+]
+checksums = [
+    '6f17f488f512b39c2feb57d83a5e0a13dcef32999bea2e2a8f832f54a29badb8',  # qt-everywhere-src-5.14.1.tar.xz
+    '6f46005f056bf9e6ff3e5d012a874d18ee03b33e685941f2979c970be91a9dbc',  # Qt5-5.13.1_fix-avx2.patch
+    '511ca9c0599ceb1989f73d8ceea9199c041512d3a26ee8c5fd870ead2c10cb63',  # Qt5-5.13.1_fix-qmake-libdir.patch
+    '11db32da45a003963e6abfd8ab7161d7e4ec3a8d668b54d18a3f6a713fd813a2',  # Qt5-5.14.1_fix-mantissatable.patch
+    '0b9defb7ce75314d85bebe07e143db7f7de316fec64c17cbd13f7eec5d2d1afa',  # Qt5-5.14.1_fix-OF-Gentoo.patch
+]
+
+builddependencies = [
+    ('binutils', '2.34'),
+    ('pkg-config', '0.29.2'),
+    # deps for QtWebEngine
+    ('Bison', '3.5.3'),
+    ('flex', '2.6.4'),
+]
+
+
+dependencies = [
+    ('double-conversion', '3.1.5'),
+    ('GLib', '2.64.1'),
+    ('PCRE2', '10.34'),
+    ('libpng', '1.6.37'),
+    # deps for QtWebEngine
+    ('X11', '20200222'),
+    ('fontconfig', '2.13.92'),
+    ('DBus', '1.13.12'),
+    ('libevent', '2.1.11'),
+    ('libGLU', '9.0.1'),
+    ('libjpeg-turbo', '2.0.4'),
+    ('NSS', '3.51'),
+    ('snappy', '1.1.8'),
+    ('JasPer', '2.0.14'),
+    ('bzip2', '1.0.8'),
+]
+
+# qtgamepad needs recent kernel/libevdev (fails on RHEL 6.x)
+# qtwayland fails to build on (some) Centos 7 systems
+configopts = '-skip qtgamepad  -skip qtwayland'
+
+parallel = 16
+
+# make sure QtWebEngine component is being built & installed
+#check_qtwebengine = True
+
+moduleclass = 'devel'
+
+# Build statistics
+buildstats = [{
+    "build_time": 2874.01,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--rebuild', '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './Qt5-5.14.1-GCCcore-9.3.0.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.3.2",
+    "easybuild-framework_version": "4.3.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/9.3.0/libexec/gcc/x86_64-pc-linux-gnu/9.3.0/lto-wrapper; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/9.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/9.3.0/system-system/gcc-9.3.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; gcc version 9.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 905698802,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.8.2003",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  2 2020, 13:16:51) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/9.3.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1619722878,
+    "total_memory": 31912,
+}]

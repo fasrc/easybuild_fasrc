@@ -1,0 +1,81 @@
+# Built with EasyBuild version 4.4.1 on 2021-09-28_19-18-45
+# #
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Copyright:: Copyright 2012-2014 Uni.Lu/LCSB, NTUA
+# Authors::   Fotis Georgatos <fotis@cern.ch>
+# License::   MIT/GPL
+# $Id$
+#
+# This work implements a part of the HPCBIOS project and is a component of the
+# policy:  https://hpcbios.readthedocs.org/en/latest/
+# #
+
+easyblock = 'ConfigureMake'
+
+name = 'SQLite'
+version = '3.33.0'
+local_filename_version = '3330000'
+
+homepage = 'https://www.sqlite.org/'
+description = "SQLite: SQL Database Engine in a C Library"
+
+toolchain = {'name': 'GCCcore', 'version': '10.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://www.%(namelower)s.org/2020/']
+sources = ['%%(namelower)s-autoconf-%s.tar.gz' % (local_filename_version)]
+checksums = ['106a2c48c7f75a298a7557bcc0d5f4f454e5b43811cc738b7ca294d6956bbb15']
+
+builddependencies = [
+    ('binutils', '2.35'),
+]
+dependencies = [
+    ('libreadline', '8.0'),
+    ('Tcl', '8.6.10'),
+]
+
+# enable additional APIs that provide access to meta-data about tables and queries
+# needed for GDAL when it used as a dep for QGIS
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS -DSQLITE_ENABLE_COLUMN_METADATA"'
+
+
+sanity_check_paths = {
+    'files': ['bin/sqlite3', 'include/sqlite3ext.h', 'include/sqlite3.h',
+              'lib/libsqlite3.a', 'lib/libsqlite3.%s' % SHLIB_EXT],
+    'dirs': ['lib/pkgconfig'],
+}
+
+sanity_check_commands = [
+    'sqlite3 --version | grep ^%(version)s',
+]
+
+moduleclass = 'devel'
+
+# Build statistics
+buildstats = [{
+    "build_time": 87.78,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.4.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'GROMACS-2021-fosscuda-2020b.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.4.1",
+    "easybuild-framework_version": "4.4.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.2.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 7913756,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.9.2009",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Nov 16 2020, 22:23:17) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.2.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1632871124,
+    "total_memory": 31912,
+}]
