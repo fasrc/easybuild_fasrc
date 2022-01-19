@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Built with EasyBuild version 4.4.1 on 2021-09-28_17-26-14
+=======
+# Built with EasyBuild version 4.3.2 on 2021-03-17_07-30-46
+>>>>>>> bb7db6151763d30fba33c288a1737edf517cb457
 easyblock = 'EB_GCC'
 
 name = 'GCCcore'
@@ -33,10 +37,14 @@ sources = [
 patches = [
     'GCCcore-6.2.0-fix-find-isl.patch',
     'GCCcore-9.3.0_gmp-c99.patch',
+<<<<<<< HEAD
     'GCCcore-9.3.0_nvptx_sm_35_default.patch',
     'GCCcore-10.2.0_fix-has-include-Fortran.patch',
     'GCCcore-10.2.0_fix-ice-on-arm.patch',
     'GCCcore-10.2.0_fix-vec-builtins-conversion-on-ppc.patch',
+=======
+    'GCC-10.2_fix-has-include-Fortran.patch',
+>>>>>>> bb7db6151763d30fba33c288a1737edf517cb457
 ]
 checksums = [
     '27e879dccc639cd7b0cc08ed575c1669492579529b53c9ff27b0b96265fa867d',  # gcc-10.2.0.tar.gz
@@ -48,11 +56,15 @@ checksums = [
     'a25b6f7761bb61c0d8e2a183bcf51fbaaeeac26868dcfc015e3b16a33fe11705',  # nvptx-tools-20180301.tar.gz
     '5ad909606d17d851c6ad629b4fddb6c1621844218b8d139fed18c502a7696c68',  # GCCcore-6.2.0-fix-find-isl.patch
     '0e135e1cc7cec701beea9d7d17a61bab34cfd496b4b555930016b98db99f922e',  # GCCcore-9.3.0_gmp-c99.patch
+<<<<<<< HEAD
     '8d8b9834a570b5789d47296311953b6307d4427957a73e102de43cca7a6fa108',  # GCCcore-9.3.0_nvptx_sm_35_default.patch
     'f94fa117f3401b28fda0741f3f45439c09dc956d1ed27f9a3ebe40c0e7e404b6',  # GCCcore-10.2.0_fix-has-include-Fortran.patch
     '44edbf1cddb2d7037f9606b6995d9ef20ff664b810a3e3ef383420a4366ed278',  # GCCcore-10.2.0_fix-ice-on-arm.patch
     # GCCcore-10.2.0_fix-vec-builtins-conversion-on-ppc.patch
     'fb160374ba691d8267a19dee4268305a6e34123cab9e65176b5168c36e9f0962',
+=======
+    'f94fa117f3401b28fda0741f3f45439c09dc956d1ed27f9a3ebe40c0e7e404b6',  # GCC-10.2_fix-has-include-Fortran.patch
+>>>>>>> bb7db6151763d30fba33c288a1737edf517cb457
 ]
 
 builddependencies = [
@@ -69,14 +81,20 @@ moduleclass = 'compiler'
 
 # Build statistics
 buildstats = [{
+<<<<<<< HEAD
     "build_time": 2538.99,
     "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.4.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", './OpenMPI-4.0.5-gcccuda-2020b.eb'],
+=======
+    "build_time": 2543.33,
+    "command_line": ["--buildpath='/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/z:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/h:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/m:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/f:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/b:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/g:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.3.2/lib/python2.7/site-packages/easybuild_easyconfigs-4.3.2-py2.7.egg/easybuild/easyconfigs:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/z:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/h:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/m:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/f:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/b:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS/g:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.3.2/lib/python2.7/site-packages/easybuild_easyconfigs-4.3.2-py2.7.egg/easybuild/easyconfigs:/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/home01/ebuser/dcaunt/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'tbb-2020.3-GCCcore-10.2.0.eb'],
+>>>>>>> bb7db6151763d30fba33c288a1737edf517cb457
     "core_count": 48,
     "cpu_arch": "x86_64",
     "cpu_arch_name": "UNKNOWN",
     "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
     "cpu_speed": 3300.0,
     "cpu_vendor": "Intel",
+<<<<<<< HEAD
     "easybuild-easyblocks_version": "4.4.1",
     "easybuild-framework_version": "4.4.1",
     "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.2.0 (GCC) ; ",
@@ -92,5 +110,22 @@ buildstats = [{
     "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.2.0/bin/gcc",
     "system_python_path": "/bin/python",
     "timestamp": 1632864373,
+=======
+    "easybuild-easyblocks_version": "4.3.2",
+    "easybuild-framework_version": "4.3.2",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.2.0/libexec/gcc/x86_64-pc-linux-gnu/10.2.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.2.0 --enable-bootstrap --with-isl=/scratch/dcaunt/easybuild/BUILD/GCCcore/10.2.0/system-system/gcc-10.2.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.2.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 2933347119,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.8.2003",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Apr  2 2020, 13:16:51) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.2.0/bin/gcc",
+    "system_python_path": "/bin/python",
+    "timestamp": 1615980645,
+>>>>>>> bb7db6151763d30fba33c288a1737edf517cb457
     "total_memory": 31912,
 }]
