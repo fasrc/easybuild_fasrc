@@ -1,6 +1,7 @@
 name = 'MrBayes'
 version = '3.2.7a'
 easyblock = 'ConfigureMake'
+configopts = [ "--with-mpi" ]
 
 homepage = 'http://mrbayes.csit.fsu.edu'
 description = "MrBayes is a program for the Bayesian estimation of phylogeny."

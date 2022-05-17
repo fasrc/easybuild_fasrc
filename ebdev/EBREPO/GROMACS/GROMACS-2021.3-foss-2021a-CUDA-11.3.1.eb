@@ -1,0 +1,118 @@
+# Built with EasyBuild version 4.5.1 on 2022-03-08_20-56-55
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Copyright:: Copyright 2012-2016 University of Luxembourg / LCSB, Cyprus Institute / CaSToRC,
+#                                 Ghent University / The Francis Crick Institute
+# Authors::
+# * Wiktor Jurkowski <wiktor.jurkowski@gmail.com>
+# * Fotis Georgatos <fotis@cern.ch>
+# * George Tsouloupas <g.tsouloupas@cyi.ac.cy>
+# * Kenneth Hoste <kenneth.hoste@ugent.be>
+# * Adam Huffman <adam.huffman@crick.ac.uk>
+# * Ake Sandgren <ake.sandgren@hpc2n.umu.se>
+# * J. Sassmannshausen <Crick HPC team>
+# * Dugan Witherick <dugan.witherick@warwick.ac.uk>
+# License::   MIT/GPL
+
+name = 'GROMACS'
+version = '2021.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://www.gromacs.org'
+description = """
+GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the
+Newtonian equations of motion for systems with hundreds to millions of
+particles.
+
+This is a GPU enabled build, containing both MPI and threadMPI builds.
+
+It also contains the gmxapi extension for the single precision MPI build.
+"""
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+source_urls = [
+    'https://ftp.gromacs.org/pub/gromacs/',
+    'ftp://ftp.gromacs.org/pub/gromacs/',
+]
+sources = [SOURCELOWER_TAR_GZ]
+patches = [
+    'GROMACS-2019_fix_omp_num_threads_and_google_test_death_style_in_tests.patch',
+    'GROMACS-2019_increase_test_timeout_for_GPU.patch',
+    'GROMACS-2021_fix_gmxapi_gmx_allowed_cmd_name.patch',
+    'GROMACS-2020.5_fix_threads_gpu_Gmxapitests.patch',
+]
+checksums = [
+    'e109856ec444768dfbde41f3059e3123abdb8fe56ca33b1a83f31ed4575a1cc6',  # gromacs-2021.3.tar.gz
+    # GROMACS-2019_fix_omp_num_threads_and_google_test_death_style_in_tests.patch
+    '406f5edd204be812f095a6f07ebc2673c5f6ddf1b1c1428fd336a80b9c629275',
+    # GROMACS-2019_increase_test_timeout_for_GPU.patch
+    '0d16f53d428155197a0ed0b0974ce03422f199d7c463c4a9156a3b99e3c86234',
+    # GROMACS-2021_fix_gmxapi_gmx_allowed_cmd_name.patch
+    'b7ffb292ec362e033db1bedd340353f0644dbaae872127750f3dda1ac7e87d49',
+    # GROMACS-2020.5_fix_threads_gpu_Gmxapitests.patch
+    '89fbb7e2754de45573632c74f53563bb979df9758c949238a35865391d6b53fb',
+]
+
+builddependencies = [
+    ('CMake', '3.20.1'),
+    ('scikit-build', '0.11.1'),
+]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('SciPy-bundle', '2021.05'),
+    ('networkx', '2.5.1'),
+    ('CUDA', '11.3.1', '', True),
+]
+
+exts_defaultclass = 'PythonPackage'
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'use_pip': True,
+    'download_dep_fail': True,
+    'sanity_pip_check': True,
+}
+
+exts_list = [
+    ('gmxapi', '0.2.0', {
+        'preinstallopts': "export GMXTOOLCHAINDIR=%(installdir)s/share/cmake/gromacs_mpi && ",
+        'checksums': ['3954bf123da12fc60bcfaeed8263f5e2d3e16e5136c2bb5c8207b20fa7406788'],
+    }),
+]
+
+modextrapaths = {
+    'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages',
+}
+
+moduleclass = 'bio'
+
+# Build statistics
+buildstats = [{
+    "build_time": 719.32,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.5.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', '--skip-test-step', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'GROMACS-2021.3-foss-2021a-CUDA-11.3.1.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.5.1",
+    "easybuild-framework_version": "4.5.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.3.0/libexec/gcc/x86_64-pc-linux-gnu/10.3.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/10.3.0/system-system/gcc-10.3.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 418392437,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.9.2009",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Nov 16 2020, 22:23:17) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.3.0/bin/gcc",
+    "system_python_path": "/n/sw/eb/apps/centos7/Python/3.9.5-GCCcore-10.3.0/bin/python",
+    "timestamp": 1646791014,
+    "total_memory": 31912,
+}]

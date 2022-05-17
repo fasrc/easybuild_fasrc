@@ -1,0 +1,94 @@
+# Built with EasyBuild version 4.5.1 on 2022-03-08_18-34-36
+easyblock = 'PythonBundle'
+
+name = 'SciPy-bundle'
+version = '2021.05'
+
+homepage = 'https://python.org/'
+description = "Bundle of Python packages for scientific software"
+
+toolchain = {'name': 'foss', 'version': '2021a'}
+toolchainopts = {'pic': True, 'lowopt': True}
+
+builddependencies = [('hypothesis', '6.13.1')]
+
+dependencies = [
+    ('Python', '3.9.5'),
+    ('pybind11', '2.6.2'),  # required by scipy
+]
+
+use_pip = True
+
+# order is important!
+exts_list = [
+    ('numpy', '1.20.3', {
+        'sources': [SOURCE_ZIP],
+        'patches': [
+            'numpy-1.20.3_skip-ppc-long-complex-test.patch',
+            'numpy-1.20.3_xfail-test-nan.patch',
+            'numpy-1.20.3_fix-target-test-ccompiler-opt.patch',
+        ],
+        'checksums': [
+            'e55185e51b18d788e49fe8305fd73ef4470596b33fc2c1ceb304566b99c71a69',  # numpy-1.20.3.zip
+            # numpy-1.20.3_skip-ppc-long-complex-test.patch
+            '2f9a12e3a352b39076db84a7622fc8f4796abd3cb7f97f71958a495e864659a4',
+            'f0ce961f7d79551598e23050d92f46e827e300f6a7e5a6112e58efcc10385d4d',  # numpy-1.20.3_xfail-test-nan.patch
+            # numpy-1.20.3_fix-target-test-ccompiler-opt.patch
+            '3d84e8b7d48387778974a5f6ae342a690ab5989547206b6add9d9667f8d7572a',
+        ],
+    }),
+    ('scipy', '1.6.3', {
+        'checksums': ['a75b014d3294fce26852a9d04ea27b5671d86736beb34acdfc05859246260707'],
+    }),
+    ('mpi4py', '3.0.3', {
+        'checksums': ['012d716c8b9ed1e513fcc4b18e5af16a8791f51e6d1716baccf988ad355c5a1f'],
+    }),
+    ('numexpr', '2.7.3', {
+        'checksums': ['43616529f9b7d1afc83386f943dc66c4da5e052f00217ba7e3ad8dd1b5f3a825'],
+    }),
+    ('Bottleneck', '1.3.2', {
+        'checksums': ['20179f0b66359792ea283b69aa16366419132f3b6cf3adadc0c48e2e8118e573'],
+    }),
+    ('pandas', '1.2.4', {
+        'preinstallopts': """sed -i 's@extra_compile_args = \["-Werror"\]@extra_compile_args = []@g' setup.py && """,
+        'checksums': ['649ecab692fade3cbfcf967ff936496b0cfba0af00a55dfaacd82bdda5cb2279'],
+    }),
+    ('mpmath', '1.2.1', {
+        'checksums': ['79ffb45cf9f4b101a807595bcb3e72e0396202e0b1d25d689134b48c4216a81a'],
+    }),
+    ('deap', '1.3.1', {
+        'checksums': ['11f54493ceb54aae10dde676577ef59fc52d52f82729d5a12c90b0813c857a2f'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lang'
+
+# Build statistics
+buildstats = [{
+    "build_time": 2204.72,
+    "command_line": ["--buildpath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/BUILD'", '--group-writable-installdir', "--hide-deps='Bison,Doxygen,JasPer,NASM,SQLite,Szip,Tcl,bzip2,cURL,flex,freetype,libjpeg-turbo,libpng,libreadline,libtool,libxml2,ncurses,zlib,M4,Serf,APR,APR-util,expat,SCons,binutils,Coreutils,GLib,Qt,SCOTCH,Tk,hwloc,libffi,libunwind,make,numactl,pkg-config,gettext,Autotools,Automake,Autoconf,GCCcore,OPARI2,OTF2,UDUNITS,ZeroMQ,OpenPGM,util-linux,libsodium,libQGLViewer,Eigen,GTS,GL2PS,PyGTS,PyQt,IPython,Python-Xlib,LOKI,SIP,NASM,PIL,libjpeg-turbo'", "--installpath-modules='/n/sw/eb/modulefiles/centos7'", "--installpath-software='/n/sw/eb/apps/centos7'", "--module-naming-scheme='HierarchicalMNS'", '--recursive-module-unload', "--repositorypath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS:/n/sw/eb/apps/centos7/EasyBuild/4.5.1/easybuild/easyconfigs:/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", "--robot-paths='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SPECS::/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/EBREPO'", '--set-gid-bit', "--sourcepath='/n/sw/src/CENTOS6-PLAMEN/EB/ebuser/easybuild_fasrc/ebdev/SOURCES'", "--suffix-modules-path=''", "--umask='002'", 'GROMACS-2021.3-foss-2021a-CUDA-11.3.1.eb'],
+    "core_count": 48,
+    "cpu_arch": "x86_64",
+    "cpu_arch_name": "UNKNOWN",
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz",
+    "cpu_speed": 3300.0,
+    "cpu_vendor": "Intel",
+    "easybuild-easyblocks_version": "4.5.1",
+    "easybuild-framework_version": "4.5.1",
+    "gcc_version": "Using built-in specs.; COLLECT_GCC=gcc; COLLECT_LTO_WRAPPER=/n/sw/eb/apps/centos7/GCCcore/10.3.0/libexec/gcc/x86_64-pc-linux-gnu/10.3.0/lto-wrapper; OFFLOAD_TARGET_NAMES=nvptx-none; Target: x86_64-pc-linux-gnu; Configured with: ../configure --enable-languages=c,c++,fortran --without-cuda-driver --enable-offload-targets=nvptx-none --enable-lto --enable-checking=release --disable-multilib --enable-shared=yes --enable-static=yes --enable-threads=posix --enable-plugins --enable-gold=default --enable-ld --with-plugin-ld=ld.gold --prefix=/n/sw/eb/apps/centos7/GCCcore/10.3.0 --with-local-prefix=/n/sw/eb/apps/centos7/GCCcore/10.3.0 --enable-bootstrap --with-isl=/scratch/ebuser/easybuild/GCCcore/10.3.0/system-system/gcc-10.3.0/stage2_stuff --build=x86_64-pc-linux-gnu --host=x86_64-pc-linux-gnu; Thread model: posix; Supported LTO compression algorithms: zlib; gcc version 10.3.0 (GCC) ; ",
+    "glibc_version": "2.17",
+    "hostname": "builds02.rc.fas.harvard.edu",
+    "install_size": 464741882,
+    "modules_tool": ('Lmod', '/n/sw/eb/lmod/lmod/libexec/lmod', '7.8.7'),
+    "os_name": "centos linux",
+    "os_type": "Linux",
+    "os_version": "7.9.2009",
+    "platform_name": "x86_64-unknown-linux",
+    "python_version": "2.7.5 (default, Nov 16 2020, 22:23:17) ; [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]",
+    "system_gcc_path": "/n/sw/eb/apps/centos7/GCCcore/10.3.0/bin/gcc",
+    "system_python_path": "/n/sw/eb/apps/centos7/Python/3.9.5-GCCcore-10.3.0/bin/python",
+    "timestamp": 1646782476,
+    "total_memory": 31912,
+}]
